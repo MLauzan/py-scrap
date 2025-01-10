@@ -6,8 +6,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from dotenv import load_dotenv
 
 import telebot
-import datetime
-import locale
+from datetime import datetime
+import pytz
 import os
 
 app = Flask(__name__)
@@ -24,16 +24,18 @@ def run_script():
     driver = webdriver.Chrome(options=options)
 
     bot = telebot.TeleBot(token)
-    locale.setlocale(locale.LC_TIME, 'es_AR.UTF-8')
 
     driver.get("https://www.movistararena.com.ar/show/e69127ec-55d8-4a59-b6c5-a7fdaa536615")
 
     try:
         wait = WebDriverWait(driver, 10)
         events = wait.until(EC.visibility_of_all_elements_located((By.CLASS_NAME, "evento-row")))
+
         tickets = 0
-        hour = datetime.datetime.now()
-        formattedHour = hour.strftime('el %d-%m-%Y a las %H:%M')
+
+        buenos_aires_tz = pytz.timezone('America/Argentina/Buenos_Aires')
+        now = datetime.now(buenos_aires_tz)
+        formattedHour = now.strftime('el %d-%m-%Y a las %H:%M')
         
         for event in events:
             try:
