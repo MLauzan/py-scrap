@@ -49,7 +49,8 @@ RUN pip install --upgrade pip setuptools wheel
 # Instalar dependencias de Python
 COPY requirements.txt /app/requirements.txt
 WORKDIR /app
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir --no-use-pep517 -r requirements.txt
+
 
 # Copiar todo el código de la aplicación
 COPY . /app

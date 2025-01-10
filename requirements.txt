@@ -1,6 +1,6 @@
 Flask==2.1.1
 selenium==4.3.0
-telebot==0.0.1
+pyTelegramBotAPI==4.8.0
 python-dotenv==0.19.2
 pytz==2022.1
 Werkzeug==2.0.3
