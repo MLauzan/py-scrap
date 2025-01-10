@@ -3,31 +3,24 @@ FROM python:3.9-slim
 
 # Instalar dependencias del sistema para Selenium y Chrome
 RUN apt-get update && apt-get install -y \
-    wget \
-    curl \
-    unzip \
-    ca-certificates \
-    libx11-dev \
-    libgdk-pixbuf2.0-0 \
-    libgtk-3-0 \
-    libxss1 \
-    libasound2 \
-    libappindicator3-1 \
-    libnspr4 \
     libnss3 \
-    libxtst6 \
+    libgconf-2-4 \
+    libfontconfig1 \
+    libx11-6 \
+    libxcomposite1 \
     libxrandr2 \
+    libxdamage1 \
+    libdbus-1-3 \
+    libxtst6 \
+    libgtk-3-0 \
+    libasound2 \
     libatk-bridge2.0-0 \
     libatk1.0-0 \
-    libcurl4 \
-    libjpeg62-turbo \
-    fonts-liberation \
     libappindicator3-1 \
-    libasound2 \
-    libxtst6 \
+    libgdk-pixbuf2.0-0 \
+    libxss1 \
     xdg-utils \
-    build-essential \
-    python3-dev \
+    fonts-liberation \
     && apt-get clean
 
 # Descargar e instalar Google Chrome
