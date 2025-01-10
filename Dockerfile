@@ -44,6 +44,9 @@ RUN apt-get install -y google-chrome-stable
 RUN GOOGLE_CHROME_VERSION=$(google-chrome-stable --version | awk '{print $3}') \
     && echo "Google Chrome version: $GOOGLE_CHROME_VERSION"
 
+# Asegurarnos de que la versión de Google Chrome se haya obtenido correctamente
+RUN if [ -z "$GOOGLE_CHROME_VERSION" ]; then echo "Error: No se pudo obtener la versión de Google Chrome"; exit 1; fi
+
 # Descargar la versión correspondiente de ChromeDriver
 RUN CHROMEDRIVER_VERSION=$(curl -sS "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$GOOGLE_CHROME_VERSION") \
     && echo "ChromeDriver version: $CHROMEDRIVER_VERSION" \
