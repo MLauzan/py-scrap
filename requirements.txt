@@ -1,5 +1,5 @@
 Flask==2.1.1
-selenium==4.3.0
-telebot==0.0.1
-python-dotenv==0.19.2
-pytz==2022.1
+selenium
+telebot
+python-dotenv
+pytz

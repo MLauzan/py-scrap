@@ -26,6 +26,8 @@ RUN apt-get update && apt-get install -y \
     libasound2 \
     libxtst6 \
     xdg-utils \
+    build-essential \
+    python3-dev \
     && apt-get clean
 
 # Descargar e instalar Google Chrome
@@ -41,6 +43,9 @@ RUN LATEST=$(curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE
     && mv chromedriver /usr/local/bin/ \
     && chmod +x /usr/local/bin/chromedriver \
     && rm chromedriver_linux64.zip
+
+# Actualizar pip, setuptools y wheel
+RUN pip install --upgrade pip setuptools wheel
 
 # Instalar dependencias de Python
 COPY requirements.txt /app/requirements.txt
