@@ -40,11 +40,11 @@ RUN curl -sS https://dl.google.com/linux/linux_signing_key.pub | apt-key add - \
 # Instalar Google Chrome
 RUN apt-get install -y google-chrome-stable
 
-# Obtener la versión exacta de Google Chrome
+# Verificar la versión de Google Chrome e imprimirla para depuración
 RUN GOOGLE_CHROME_VERSION=$(google-chrome-stable --version | awk '{print $3}') \
     && echo "Google Chrome version: $GOOGLE_CHROME_VERSION"
 
-# Agregar una verificación para asegurarse de que la URL de ChromeDriver es válida
+# Descargar la versión correspondiente de ChromeDriver
 RUN CHROMEDRIVER_VERSION=$(curl -sS "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$GOOGLE_CHROME_VERSION") \
     && echo "ChromeDriver version: $CHROMEDRIVER_VERSION" \
     && wget -q "https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip" \
