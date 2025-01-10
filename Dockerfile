@@ -3,30 +3,42 @@ FROM python:3.9-slim
 
 # Instalar dependencias del sistema para Selenium y Chrome
 RUN apt-get update && apt-get install -y \
-    libnss3 \
-    libgconf-2-4 \
-    libfontconfig1 \
-    libx11-6 \
-    libxcomposite1 \
-    libxrandr2 \
-    libxdamage1 \
-    libdbus-1-3 \
-    libxtst6 \
+    wget \
+    curl \
+    unzip \
+    ca-certificates \
+    libx11-dev \
+    libgdk-pixbuf2.0-0 \
     libgtk-3-0 \
+    libxss1 \
     libasound2 \
+    libappindicator3-1 \
+    libnspr4 \
+    libnss3 \
+    libxtst6 \
+    libxrandr2 \
     libatk-bridge2.0-0 \
     libatk1.0-0 \
-    libappindicator3-1 \
-    libgdk-pixbuf2.0-0 \
-    libxss1 \
-    xdg-utils \
+    libcurl4 \
+    libjpeg62-turbo \
     fonts-liberation \
+    libappindicator3-1 \
+    libasound2 \
+    libxtst6 \
+    xdg-utils \
+    build-essential \
+    python3-dev \
+    lsb-release \
     && apt-get clean
 
-# Descargar e instalar Google Chrome
-RUN wget -q -O google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
-    && dpkg -i google-chrome.deb || apt-get -f install -y \
-    && rm google-chrome.deb
+# Agregar repositorio de Google Chrome
+RUN curl -sS https://dl.google.com/linux/linux_signing_key.pub | apt-key add - \
+    && DISTRO=$(lsb_release -c | awk '{print $2}') \
+    && echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | tee /etc/apt/sources.list.d/google-chrome.list \
+    && apt-get update
+
+# Instalar Google Chrome
+RUN apt-get install -y google-chrome-stable
 
 # Descargar e instalar ChromeDriver (compatible con la última versión de Chrome)
 RUN LATEST=$(curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE) \
@@ -42,8 +54,7 @@ RUN pip install --upgrade pip setuptools wheel
 # Instalar dependencias de Python
 COPY requirements.txt /app/requirements.txt
 WORKDIR /app
-RUN pip install --no-cache-dir --no-use-pep517 -r requirements.txt
-
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Copiar todo el código de la aplicación
 COPY . /app
