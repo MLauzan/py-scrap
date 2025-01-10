@@ -41,14 +41,15 @@ RUN curl -sS https://dl.google.com/linux/linux_signing_key.pub | apt-key add - \
 RUN apt-get install -y google-chrome-stable
 
 # Verificar la versión de Google Chrome e imprimirla para depuración
-RUN GOOGLE_CHROME_VERSION=$(google-chrome-stable --version | awk '{print $3}') \
-    && echo "Google Chrome version: $GOOGLE_CHROME_VERSION"
+RUN google-chrome-stable --version || echo "Error: No se pudo obtener la versión de Google Chrome"
 
-# Asegurarnos de que la versión de Google Chrome se haya obtenido correctamente
-RUN if [ -z "$GOOGLE_CHROME_VERSION" ]; then echo "Error: No se pudo obtener la versión de Google Chrome"; exit 1; fi
+# Verificar si el comando google-chrome-stable existe y funciona
+RUN which google-chrome-stable || echo "Error: google-chrome-stable no encontrado"
 
 # Descargar la versión correspondiente de ChromeDriver
-RUN CHROMEDRIVER_VERSION=$(curl -sS "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$GOOGLE_CHROME_VERSION") \
+RUN GOOGLE_CHROME_VERSION=$(google-chrome-stable --version | awk '{print $3}') \
+    && echo "Google Chrome version: $GOOGLE_CHROME_VERSION" \
+    && CHROMEDRIVER_VERSION=$(curl -sS "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$GOOGLE_CHROME_VERSION") \
     && echo "ChromeDriver version: $CHROMEDRIVER_VERSION" \
     && wget -q "https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip" \
     && unzip chromedriver_linux64.zip \
