@@ -20,10 +20,17 @@ RUN apt-get update && apt-get install -y \
     libatk-bridge2.0-0 \
     libatk1.0-0 \
     libgdk-pixbuf2.0-0 \
+    libcurl4 \
+    libjpeg62-turbo \
+    fonts-liberation \
+    libappindicator3-1 \
+    libasound2 \
+    libxtst6 \
+    xdg-utils \
     && apt-get clean
 
 # Instalar Google Chrome
-RUN wget -q -O - https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb > google-chrome.deb \
+RUN wget -q -O google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
     && dpkg -i google-chrome.deb \
     && apt-get -f install -y \
     && rm google-chrome.deb
