@@ -60,4 +60,5 @@ def run_script():
     return 'Proceso realizado con éxito'
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port, debug=True)
