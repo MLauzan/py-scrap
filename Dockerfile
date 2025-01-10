@@ -32,7 +32,6 @@ RUN apt-get update && apt-get install -y \
 
 # Descargar e instalar Google Chrome
 RUN wget -q -O google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
-    && ls -l google-chrome.deb \
     && dpkg -i google-chrome.deb || apt-get -f install -y \
     && rm google-chrome.deb
 
