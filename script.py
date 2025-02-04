@@ -57,9 +57,9 @@ def run_script():
             except Exception as e:
                 print(f"Error al procesar un evento: {e}")
 
-        if tickets == 0:
-            print(f'No hay entradas para ver a Duki {formattedHour}')
-            bot.send_message(chat_id=user_id, text=f'No hay entradas para ver a Duki {formattedHour}')
+        # if tickets == 0:
+        #     print(f'No hay entradas para ver a Duki {formattedHour}')
+        #     bot.send_message(chat_id=user_id, text=f'No hay entradas para ver a Duki {formattedHour}')
 
     except Exception as e:
         print(f"Error al procesar la página: {e}")
