@@ -41,7 +41,7 @@ def run_script():
                 day = event.find_element(By.CSS_SELECTOR, ".fecha p").text
                 month = event.find_element(By.CSS_SELECTOR, ".fecha span").text
 
-                if status and status != 'Agotado':
+                if status and status != 'Agotado' and day == '14':
                     tickets += 1
                     bot.send_message(chat_id=user_id, text=f'Hay entradas para el día {day} de {month} ahora {formattedHour}')
             except Exception as e:
